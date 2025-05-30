@@ -57,7 +57,11 @@ Start the script
 npm run start
 ```
 
-> Notice!
+Here is an asciinema recording of the script, when all prerequisites are met you can install Neptune DXP - Open Edition in just under 2 minutes 🚀
+
+![Neptune DXP Deployment script](neptune.gif)
+
+> [!NOTE]
 > The scripts have been tested on MacOS and Linux using the latest Cloud Foundry CLI.
 
 Please open a GitHub Issue in this repository if you encounter any problems.
