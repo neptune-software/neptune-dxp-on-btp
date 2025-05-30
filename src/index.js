@@ -20,6 +20,18 @@ if (!shell.which("cf")) {
 
 const target = shell.exec("cf target", { silent: true }).stdout;
 
+if (target.includes("FAILED")) {
+  shell.echo("❌ Please login with cf login before executing this script");
+  shell.exit(1);
+}
+
+const app = shell.exec("cf app neptune-dxp", { silent: true }).stdout;
+
+if (!app.includes("FAILED")) {
+  shell.echo("❌ Neptune DXP is already installed in this subaccount");
+  shell.exit(1);
+}
+
 const rl = readline.createInterface({
   input: process.stdin,
   output: process.stdout,
@@ -41,11 +53,6 @@ if (!answer.includes("y")) {
 const services = shell.exec("cf services", { silent: true }).stdout;
 
 // TODO: If not available create a postgres instance via the CF CLI
-
-if (services.includes("FAILED")) {
-  shell.echo("❌ Please login with cf login before executing this script");
-  shell.exit(1);
-}
 
 if (!services.includes("postgresql-db")) {
   shell.echo("❌ PostgreSQL Instance not found!");
@@ -102,3 +109,5 @@ shell.exec(`cf set-env neptune-dxp DB_URI_POSTGRES ${postgresuri}`);
 shell.exec("cf restage neptune-dxp");
 
 shell.echo("✅ Neptune DXP - Open Edition deployed");
+
+shell.exit(1);

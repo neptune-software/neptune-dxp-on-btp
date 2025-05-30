@@ -2,7 +2,7 @@
 
 Welcome to the Neptune DXP on SAP BTP repository!
 
-This repository contains script for easy deployment on the Neptune DXP - Open Edition Docker container on SAP BTP Cloud Foundry.
+This repository contains scrips for easy deployment on the Neptune DXP - Open Edition Docker container on SAP BTP Cloud Foundry.
 
 The manual steps for deployment of Neptune DXP - Open Edition are described in our documentation here: https://docs.neptune-software.com/neptune-dxp-open-edition/24/installation-guide/install-neptune-dxp-open-edition-on-btp-with-postgreSQL.html#_postgresql_hyperscaler_option
 
