@@ -1,0 +1,11 @@
+---
+applications:
+  - name: pg-init
+    memory: 64M
+    path: .
+    buildpacks:
+      - nodejs_buildpack
+    services:
+      - ((postgres-instance))
+
+    

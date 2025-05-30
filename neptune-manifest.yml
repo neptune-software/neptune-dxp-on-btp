@@ -1,0 +1,19 @@
+---
+applications:
+- name: neptune-dxp
+  env:
+    PLANET9_IP: 0.0.0.0
+    DB_TYPE: postgresql
+    DB_PSQL_SSL: 'true'
+    NODE_TLS_REJECT_UNAUTHORIZED: '0'
+  lifecycle: docker
+  docker:
+    image: docker.io/neptunesoftware/planet9:((version))
+  services:
+    - ((postgres-instance))
+  random-route: true
+  processes:
+  - type: web
+    instances: 1
+    memory: 4096M
+    disk_quota: 4096M
