@@ -10,25 +10,29 @@ shell.echo(
 
 if (!shell.which("cf")) {
   shell.echo(
-    "❌ Sorry, this script requires the Cloud Foundry Command Line Interface (cf CLI)",
+    chalk.red(
+      "Sorry, this script requires the Cloud Foundry Command Line Interface (cf CLI)"
+    ),
     chalk.blue("https://docs.cloudfoundry.org/cf-cli/")
   );
   shell.exit(1);
 } else {
-  shell.echo("✅ Cloud Foundry CLI is installed.");
+  shell.echo(chalk.green("Cloud Foundry CLI is installed."));
 }
 
 const target = shell.exec("cf target", { silent: true }).stdout;
 
 if (target.includes("FAILED")) {
-  shell.echo("❌ Please login with cf login before executing this script");
+  shell.echo(
+    chalk.red("Please login with cf login before executing this script")
+  );
   shell.exit(1);
 }
 
 const app = shell.exec("cf app neptune-dxp", { silent: true }).stdout;
 
 if (!app.includes("FAILED")) {
-  shell.echo("❌ Neptune DXP is already installed in this subaccount");
+  shell.echo(chalk.red("Neptune DXP is already installed in this subaccount"));
   shell.exit(1);
 }
 
@@ -64,7 +68,7 @@ if (!services.includes("postgresql-db")) {
   );
   shell.exit(1);
 } else {
-  shell.echo("✅ Postgresql instance found.");
+  shell.echo(chalk.green("Postgresql instance found."));
 }
 
 const serviceLines = services.split("\n");
@@ -84,7 +88,7 @@ shell.exec(
   `cf push -f ./pg-init/manifest.yml --var postgres-instance=${postgresInstanceName}`
 );
 
-shell.echo("✅ Postgresql planet9 schema created.");
+shell.echo(chalk.green("Postgresql planet9 schema created."));
 // Delete pg-init application
 shell.exec("cf delete pg-init -f");
 
@@ -108,6 +112,6 @@ shell.exec(`cf set-env neptune-dxp DB_URI_POSTGRES ${postgresuri}`);
 // Restage Neptune DXP. It will start with Postgres configured
 shell.exec("cf restage neptune-dxp");
 
-shell.echo("✅ Neptune DXP - Open Edition deployed");
+shell.echo(chalk.green("Neptune DXP - Open Edition deployed"));
 
 shell.exit(1);
