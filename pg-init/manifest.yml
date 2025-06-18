@@ -7,5 +7,4 @@ applications:
       - nodejs_buildpack
     services:
       - ((postgres-instance))
-
-    
+    random-route: true

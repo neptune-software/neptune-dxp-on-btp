@@ -90,7 +90,7 @@ shell.exec(
 
 shell.echo(chalk.green("Postgresql planet9 schema created."));
 // Delete pg-init application
-shell.exec("cf8 delete pg-init -f");
+shell.exec("cf8 delete pg-init -f -r");
 
 // Push Neptune DXP - Open Edition Docker container
 shell.exec(
