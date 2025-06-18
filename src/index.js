@@ -2,7 +2,7 @@ import shell from "shelljs";
 import chalk from "chalk";
 import readline from "readline/promises";
 
-const version = "v24.11.0"; // Lateste Neptune planet9 docker
+const version = "v24.12.0"; // latest Neptune planet9 docker
 
 shell.echo(
   chalk.hex("ff9e33").bold("\n\nNeptune DXP - Open Edition deployment!\n\n")
@@ -45,7 +45,7 @@ const rl = readline.createInterface({
 shell.echo("\n" + chalk.blue(target));
 
 const answer = await rl.question(
-  "Do you want to install Neptune DXP - Open Edition in the above org and space (yes/no)? "
+  "Do you want to install Neptune DXP - Open Edition in the above org and space (yN)? "
 );
 
 if (!answer.includes("y")) {
