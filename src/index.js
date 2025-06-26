@@ -20,9 +20,9 @@ if (!shell.which("cf8")) {
   shell.echo(chalk.green("Cloud Foundry CLI is installed."));
 }
 
-const target = shell.exec("cf8 target", { silent: true }).stdout;
+const orgs = shell.exec("cf8 orgs", { silent: true }).stdout;
 
-if (target.includes("FAILED")) {
+if (orgs.includes("FAILED")) {
   shell.echo(
     chalk.red("Please login with cf8 login before executing this script")
   );
@@ -41,6 +41,8 @@ const rl = readline.createInterface({
   output: process.stdout,
   terminal: true,
 });
+
+const target = shell.exec("cf8 target", { silent: true }).stdout;
 
 shell.echo("\n" + chalk.blue(target));
 
