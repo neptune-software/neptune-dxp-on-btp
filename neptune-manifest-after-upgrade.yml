@@ -1,0 +1,8 @@
+---
+applications:
+  - name: neptune-dxp
+    docker:
+      image: docker.io/neptunesoftware/planet9:((upgrade_version))
+    processes:
+      - type: web
+        command: "./planet9-linux"
