@@ -17,6 +17,7 @@ Pre-requisites
   https://docs.neptune-software.com/neptune-dxp-open-edition/24/installation-guide/install-neptune-dxp-open-edition-on-btp-with-postgreSQL.html#_postgresql_hyperscaler_option
 - Cloud Foundry CLI v8 or higher
   Installation Guide here https://github.com/cloudfoundry/cli/wiki/V8-CLI-Installation-Guide
+- NodeJS to run the npm scripts
 
 ## Installation
 
@@ -32,6 +33,8 @@ A couple of commands which are included are:
 Included is also another NodeJS application `pg-init` which will be deployed to SAP BTP, this application reads the Postgres Service binding environment variables and connects to the Postgres Database and will execute the `CREATE SCHEMA IF NOT EXISTS planet9;` SQL command to create the `planet9` schema which is needed for running Neptune DXP - Open Edition.
 
 ### Use the script
+
+Make sure you have the CF cli and NodeJS installed locally.
 
 Clone this repository to your local pc
 

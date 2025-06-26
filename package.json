@@ -5,7 +5,8 @@
   "scripts": {
     "prestart": "npm --prefix ./pg-init run build",
     "start": "node src/index.js",
-    "upgrade": "node src/upgrade.js"
+    "upgrade": "node src/upgrade.js",
+    "postinstall": "cd pg-init && npm install"
   },
   "keywords": [],
   "author": "",
