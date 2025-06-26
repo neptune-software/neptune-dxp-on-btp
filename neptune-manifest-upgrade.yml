@@ -2,8 +2,7 @@
 applications:
   - name: neptune-dxp
     docker:
-      image: docker.io/neptunesoftware/planet9:v24.12.0
-      health-check-type: process
+      image: docker.io/neptunesoftware/planet9:((upgrade_version))
     processes:
       - type: web
         command: "./planet9-linux --force-upgrade"

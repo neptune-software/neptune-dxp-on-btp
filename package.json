@@ -4,7 +4,8 @@
   "type": "module",
   "scripts": {
     "prestart": "npm --prefix ./pg-init run build",
-    "start": "node src/index.js"
+    "start": "node src/index.js",
+    "upgrade": "node src/upgrade.js"
   },
   "keywords": [],
   "author": "",

@@ -2,7 +2,7 @@
 
 Welcome to the Neptune DXP on SAP BTP repository!
 
-This repository contains scrips for easy deployment on the Neptune DXP - Open Edition Docker container on SAP BTP Cloud Foundry.
+This repository contains scrips for easy deployment and upgrade off the Neptune DXP - Open Edition Docker container on SAP BTP Cloud Foundry.
 
 The manual steps for deployment of Neptune DXP - Open Edition are described in our documentation here: https://docs.neptune-software.com/neptune-dxp-open-edition/24/installation-guide/install-neptune-dxp-open-edition-on-btp-with-postgreSQL.html#_postgresql_hyperscaler_option
 
@@ -18,6 +18,8 @@ Pre-requisites
 - Cloud Foundry CLI v8 or higher
   Installation Guide here https://github.com/cloudfoundry/cli/wiki/V8-CLI-Installation-Guide
 
+## Installation
+
 The main setup script is a NodeJS application running locally which executes the Cloud Foundry CLI commands by using ShellJS a JavaScript library to run shell command from NodeJS 🚀
 
 A couple of commands which are included are:
@@ -29,7 +31,7 @@ A couple of commands which are included are:
 
 Included is also another NodeJS application `pg-init` which will be deployed to SAP BTP, this application reads the Postgres Service binding environment variables and connects to the Postgres Database and will execute the `CREATE SCHEMA IF NOT EXISTS planet9;` SQL command to create the `planet9` schema which is needed for running Neptune DXP - Open Edition.
 
-## Use the script
+### Use the script
 
 Clone this repository to your local pc
 
@@ -60,6 +62,26 @@ npm run start
 Here is an asciinema recording of the script, when all prerequisites are met you can install Neptune DXP - Open Edition in just under 2 minutes 🚀
 
 ![Neptune DXP Deployment script](neptune.gif)
+
+### Upgrade
+
+For upgrading the Neptune DXP - Open Edition another script `src/upgrade.js` is avaiable.
+
+Change the following line in the `upgrade.js` script to select the correct version you want to upgrade to
+
+```js
+const upgrade_version = "v24.12.0"; // Version to upgrade to
+```
+
+You can now start the upgrade script with
+
+```
+npm run upgrade
+```
+
+The script will do 2 `cf push` command with 2 different `yaml` files. The first `cf push` command is pushing the new docker container with the version provided and will run the `./planet9-linux --force-upgrade` command to upgrade and apply the new database schema changes. The second `cf push` command is starting the same docker container again but now with standard `./planet9-linux"` command.
+
+The upgrade will take a few minutes, if any error occurs please check the Cloud Foundry log files with `cf logs neptune-dxp --recent`.
 
 > [!NOTE]
 > The scripts have been tested on MacOS and Linux using the latest Cloud Foundry CLI.
