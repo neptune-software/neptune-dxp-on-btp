@@ -2,7 +2,7 @@ import shell from "shelljs";
 import chalk from "chalk";
 import readline from "readline/promises";
 
-const upgrade_version = "v24.12.0"; // Version to upgrade to
+const upgrade_version = "v24.14.0"; // Version to upgrade to
 
 shell.echo(
   chalk.hex("ff9e33").bold("\n\nNeptune DXP - Open Edition upgrade!\n\n")

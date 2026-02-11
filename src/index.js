@@ -2,7 +2,7 @@ import shell from "shelljs";
 import chalk from "chalk";
 import readline from "readline/promises";
 
-const version = "v24.12.0"; // latest Neptune planet9 docker
+const version = "v24.14.0"; // latest Neptune planet9 docker
 
 shell.echo(
   chalk.hex("ff9e33").bold("\n\nNeptune DXP - Open Edition deployment!\n\n")
@@ -113,6 +113,8 @@ const postgresuri = uriLine.substring(start, end);
 shell.exec(`cf8 set-env neptune-dxp DB_URI_POSTGRES ${postgresuri}`);
 // Restage Neptune DXP. It will start with Postgres configured
 shell.exec("cf8 restage neptune-dxp");
+
+shell.exec("cf8 restart neptune-dxp");
 
 shell.echo(chalk.green("Neptune DXP - Open Edition deployed"));
 
