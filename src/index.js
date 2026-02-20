@@ -2,7 +2,7 @@ import shell from "shelljs";
 import chalk from "chalk";
 import readline from "readline/promises";
 
-const version = "v24.14.0"; // latest Neptune planet9 docker
+const version = "v24.14.1"; // latest Neptune planet9 docker
 
 shell.echo(
   chalk.hex("ff9e33").bold("\n\nNeptune DXP - Open Edition deployment!\n\n")
