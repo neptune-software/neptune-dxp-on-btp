@@ -42,6 +42,12 @@ Clone this repository to your local pc
 git clone https://github.com/neptune-software/neptune-dxp-on-btp
 ```
 
+Install the npm modules by running
+
+```
+npm install
+```
+
 To run the main script, make sure you are logged in to the SAP BTP subaccount and space wherre you want to deploy Neptune. For a Trial account this will be the `dev` space.
 
 You can login with your email address of your S-User
