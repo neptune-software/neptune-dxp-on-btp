@@ -72,6 +72,14 @@ Here is an asciinema recording of the script, when all prerequisites are met you
 
 ![Neptune DXP Deployment script](neptune.gif)
 
+### Custom app name
+
+By default the application is deployed with the name `neptune-dxp`. If you want to use a different name, change the `app_name` constant at the top of both `src/index.js` and `src/upgrade.js`
+
+```js
+const app_name = "neptune-dxp"; // Cloud Foundry Application Name
+```
+
 ### Upgrade
 
 For upgrading the Neptune DXP - Open Edition another script `src/upgrade.js` is avaiable.

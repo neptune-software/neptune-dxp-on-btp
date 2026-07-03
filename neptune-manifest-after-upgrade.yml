@@ -1,6 +1,6 @@
 ---
 applications:
-  - name: neptune-dxp
+  - name: ((app-name))
     docker:
       image: docker.io/neptunesoftware/planet9:((upgrade_version))
     processes:

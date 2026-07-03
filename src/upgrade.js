@@ -2,7 +2,8 @@ import shell from "shelljs";
 import chalk from "chalk";
 import readline from "readline/promises";
 
-const upgrade_version = "v24.12.3"; // Version to upgrade to
+const upgrade_version = "v24.14.3"; // Version to upgrade to
+const app_name = "neptune-dxp"; // Cloud Foundry Application Name
 
 shell.echo(
   chalk.hex("ff9e33").bold("\n\nNeptune DXP - Open Edition upgrade!\n\n")
@@ -29,7 +30,7 @@ if (orgs.includes("FAILED")) {
   shell.exit(1);
 }
 
-const app = shell.exec("cf8 app neptune-dxp", { silent: true }).stdout;
+const app = shell.exec(`cf8 app ${app_name}`, { silent: true }).stdout;
 
 if (app.includes("FAILED")) {
   shell.echo(chalk.red("Neptune DXP is not installed in this subaccount"));
@@ -55,32 +56,32 @@ if (!answer.includes("y")) {
   shell.exit(0);
 }
 
-shell.echo("stopping neptune-dxp");
-shell.exec("cf8 stop neptune-dxp");
+shell.echo(`stopping ${app_name}`);
+shell.exec(`cf8 stop ${app_name}`);
 
-shell.echo("Upgrading neptune-dxp. Please wait a few minutes...");
+shell.echo(`Upgrading ${app_name}. Please wait a few minutes...`);
 
 // Push Neptune DXP - Open Edition Docker container
 shell.exec(
-  `cf8 push -f neptune-manifest-upgrade.yml --var upgrade_version=${upgrade_version}`,
+  `cf8 push -f neptune-manifest-upgrade.yml --var app-name=${app_name} --var upgrade_version=${upgrade_version}`,
   { silent: true }
 );
 
-const logs = shell.exec("cf8 logs neptune-dxp --recent", {
+const logs = shell.exec(`cf8 logs ${app_name} --recent`, {
   silent: true,
 }).stdout;
 
 if (!logs.includes("Planet9 upgrade complete.")) {
   shell.echo(
-    "Upgrade failed. Please check log files with `cf8 logs neptune-dxp --recent`"
+    `Upgrade failed. Please check log files with \`cf8 logs ${app_name} --recent\``
   );
   shell.exit(0);
 }
 
-shell.exec("cf8 stop neptune-dxp");
+shell.exec(`cf8 stop ${app_name}`);
 
 shell.exec(
-  `cf8 push -f neptune-manifest-after-upgrade.yml --var upgrade_version=${upgrade_version}`,
+  `cf8 push -f neptune-manifest-after-upgrade.yml --var app-name=${app_name} --var upgrade_version=${upgrade_version}`,
   { silent: true }
 );
 

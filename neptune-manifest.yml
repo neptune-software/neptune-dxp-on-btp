@@ -1,6 +1,6 @@
 ---
 applications:
-- name: neptune-dxp
+- name: ((app-name))
   env:
     PLANET9_IP: 0.0.0.0
     DB_TYPE: postgresql

@@ -2,7 +2,8 @@ import shell from "shelljs";
 import chalk from "chalk";
 import readline from "readline/promises";
 
-const version = "v24.12.3"; // latest Neptune planet9 docker
+const version = "v24.14.3"; // latest Neptune planet9 docker
+const app_name = "neptune-dxp"; // Cloud Foundry Application Name
 
 shell.echo(
   chalk.hex("ff9e33").bold("\n\nNeptune DXP - Open Edition deployment!\n\n")
@@ -29,7 +30,7 @@ if (orgs.includes("FAILED")) {
   shell.exit(1);
 }
 
-const app = shell.exec("cf8 app neptune-dxp", { silent: true }).stdout;
+const app = shell.exec(`cf8 app ${app_name}`, { silent: true }).stdout;
 
 if (!app.includes("FAILED")) {
   shell.echo(chalk.red("Neptune DXP is already installed in this subaccount"));
@@ -96,10 +97,10 @@ shell.exec("cf8 delete pg-init -f -r");
 
 // Push Neptune DXP - Open Edition Docker container
 shell.exec(
-  `cf8 push -f neptune-manifest.yml --no-start --var postgres-instance=${postgresInstanceName} --var version=${version}`
+  `cf8 push -f neptune-manifest.yml --no-start --var app-name=${app_name} --var postgres-instance=${postgresInstanceName} --var version=${version}`
 );
 // Get environment variables with postgres connection data
-const env = shell.exec("cf8 env neptune-dxp", { silent: true }).stdout;
+const env = shell.exec(`cf8 env ${app_name}`, { silent: true }).stdout;
 
 const envLines = env.split("\n");
 const uriLine = envLines.find(function (line) {
@@ -110,11 +111,11 @@ const start = uriLine.indexOf("postgres");
 const end = uriLine.lastIndexOf('"');
 const postgresuri = uriLine.substring(start, end);
 // Set Postgres URI env variable for Neptune DXP
-shell.exec(`cf8 set-env neptune-dxp DB_URI_POSTGRES ${postgresuri}`);
+shell.exec(`cf8 set-env ${app_name} DB_URI_POSTGRES ${postgresuri}`);
 // Restage Neptune DXP. It will start with Postgres configured
-shell.exec("cf8 restage neptune-dxp");
+shell.exec(`cf8 restage ${app_name}`);
 
-shell.exec("cf8 restart neptune-dxp");
+shell.exec(`cf8 restart ${app_name}`);
 
 shell.echo(chalk.green("Neptune DXP - Open Edition deployed"));
 
